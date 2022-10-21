@@ -83,7 +83,7 @@ static id s_sharedDirectorCaller;
 	cocos2d::CCPoolManager::sharedPoolManager()->pop();
 	[[CCEventDispatcher sharedDispatcher] dispatchQueuedEvents];
 	
-	[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:nil];
+	[[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantPast]];
 	
 	// release the objects
 	[pool release];

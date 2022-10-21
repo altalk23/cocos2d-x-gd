@@ -22,6 +22,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#import <Cocoa/Cocoa.h>
 #import "CCUserDefault.h"
 #import <string>
 #import "platform/CCFileUtils.h"

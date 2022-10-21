@@ -36,6 +36,10 @@
 	@property (nonatomic, assign) IBOutlet NSWindow* window;
 	@property (nonatomic, assign) IBOutlet EAGLView* glView;
 
+    -(void) applicationDidFinishLaunching:(NSNotification *)aNotification;
+    -(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication;
+    -(void) dealloc;
+
 	-(IBAction) toggleFullScreen:(id)sender;
 	-(IBAction) exitFullScreen:(id)sender;
 

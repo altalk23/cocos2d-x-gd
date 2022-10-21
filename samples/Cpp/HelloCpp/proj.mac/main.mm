@@ -23,8 +23,10 @@
  ****************************************************************************/
 
 #import <Cocoa/Cocoa.h>
+#import "cocos2d.h"
 
 int main(int argc, char *argv[])
 {
+    CCLOG("main");
 	return NSApplicationMain(argc, (const char **)argv);
 }

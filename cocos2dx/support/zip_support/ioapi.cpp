@@ -114,6 +114,12 @@ static voidpf ZCALLBACK fopen64_file_func (voidpf opaque, const void* filename, 
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE || CC_TARGET_PLATFORM == CC_PLATFORM_BADA || CC_TARGET_PLATFORM == CC_PLATFORM_NACL || CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
         file = NULL;
 #else
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+    #define fopen64 fopen
+#endif
+
+
         file = fopen64((const char*)filename, mode_fopen);
 #endif
     }
@@ -150,6 +156,11 @@ static ZPOS64_T ZCALLBACK ftell64_file_func (voidpf opaque, voidpf stream)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_MARMALADE || CC_TARGET_PLATFORM == CC_PLATFORM_BADA || CC_TARGET_PLATFORM == CC_PLATFORM_NACL || CC_TARGET_PLATFORM == CC_PLATFORM_EMSCRIPTEN)
     ret = 0;
 #else
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+    #define ftello64 ftello
+#endif
+
     ret = ftello64((FILE *)stream);
 #endif
     return ret;
@@ -197,6 +208,11 @@ static long ZCALLBACK fseek64_file_func (voidpf  opaque, voidpf stream, ZPOS64_T
         break;
     default: return -1;
     }
+
+#if CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+    #define fseeko64 fseeko
+#endif
+
     if(fseeko64((FILE *)stream, offset, fseek_origin) != 0)
         return -1;
     return 0;

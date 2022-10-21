@@ -33,6 +33,7 @@ static AppDelegate s_sharedApplication;
 
 	-(void) applicationDidFinishLaunching:(NSNotification *)aNotification
 	{
+		CCLOG("AppController::applicationDidFinishLaunching");
 		// create the window
 		// note that using NSResizableWindowMask causes the window to be a little
 		// smaller and therefore ipad graphics are not loaded
@@ -60,11 +61,13 @@ static AppDelegate s_sharedApplication;
 
 	-(BOOL) applicationShouldTerminateAfterLastWindowClosed:(NSApplication*)theApplication
 	{
+		CCLOG("AppController::applicationShouldTerminateAfterLastWindowClosed");
 		return YES;
 	}
 
 	-(void) dealloc
 	{
+		CCLOG("AppController::dealloc");
 		cocos2d::CCDirector::sharedDirector()->end();
 		[super dealloc];
 	}
@@ -74,12 +77,14 @@ static AppDelegate s_sharedApplication;
 
 	-(IBAction) toggleFullScreen:(id)sender
 	{
+		CCLOG("AppController::toggleFullScreen");
 		EAGLView* pView = [EAGLView sharedEGLView];
 		[pView setFullScreen:!pView.isFullScreen];
 	}
 
 	-(IBAction) exitFullScreen:(id)sender
 	{
+		CCLOG("AppController::exitFullScreen");
 		[[EAGLView sharedEGLView] setFullScreen:NO];
 	}
 

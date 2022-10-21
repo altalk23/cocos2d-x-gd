@@ -34,7 +34,7 @@ USING_NS_CC;
 using namespace std;
 
 AppDelegate::AppDelegate() {
-
+    CCLOG("AppDelegate::AppDelegate");
 }
 
 AppDelegate::~AppDelegate() 
@@ -42,6 +42,7 @@ AppDelegate::~AppDelegate()
 }
 
 bool AppDelegate::applicationDidFinishLaunching() {
+    CCLOG("AppDelegate::applicationDidFinishLaunching");
     // initialize director
     CCDirector* pDirector = CCDirector::sharedDirector();
     CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
@@ -107,6 +108,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
 void AppDelegate::applicationDidEnterBackground() {
+    CCLOG("AppDelegate::applicationDidEnterBackground");
     CCDirector::sharedDirector()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
@@ -115,6 +117,7 @@ void AppDelegate::applicationDidEnterBackground() {
 
 // this function will be called when the app is active again
 void AppDelegate::applicationWillEnterForeground() {
+    CCLOG("AppDelegate::applicationWillEnterForeground");
     CCDirector::sharedDirector()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here

@@ -21,6 +21,7 @@ CCScene* HelloWorld::scene()
 // on "init" you need to initialize your instance
 bool HelloWorld::init()
 {
+    CCLOG("HelloWorld::init");
     //////////////////////////////
     // 1. super init first
     if ( !CCLayer::init() )
@@ -56,7 +57,7 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
     
-    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Arial", TITLE_FONT_SIZE);
+    CCLabelTTF* pLabel = CCLabelTTF::create("Hello World", "Nunito-Regular", TITLE_FONT_SIZE);
     
     // position the label on the center of the screen
     pLabel->setPosition(ccp(origin.x + visibleSize.width/2,

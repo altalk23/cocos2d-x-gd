@@ -90,6 +90,12 @@ xcuserdata/
 DerivedData/
 *.xccheckout
 
+# Ignore files build by Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+
 # Ignore files built by bada
 .Simulator-Debug/
 .Target-Debug/
