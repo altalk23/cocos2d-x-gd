@@ -37,6 +37,8 @@ file(GLOB COCOS_SOURCES
 	${COCOS_SRC}/kazmath/src/GL/*.c
 	${COCOS_SRC}/*.c
 	${COCOS_SRC}/*.cpp
+	${COCOS_SRC}/extensions/CCControlExtension/*.cpp
+	${COCOS_SRC}/extensions/network/*.cpp
 )
 
 add_library(cocos2d SHARED ${COCOS_SOURCES})
@@ -66,6 +68,7 @@ target_include_directories(cocos2d PRIVATE
 )
 
 find_package(OpenGL REQUIRED)
+find_package(CURL REQUIRED)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${COCOS_ROOT}/cmake)
 find_package(WebP REQUIRED)
 
@@ -73,6 +76,7 @@ target_link_libraries(cocos2d PUBLIC
 	"-framework Cocoa"
 	"-framework Foundation"
 	"-framework CoreVideo"
+	CURL
 	z
 	${OPENGL_LIBRARIES}
 	${WebP_LIBRARIES}
