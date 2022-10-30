@@ -472,4 +472,38 @@ void ccCArrayFullRemoveArray(ccCArray *arr, ccCArray *minusArr)
 	arr->num -= back;
 }
 
+CC_GD_ADD_BEGIN
+
+/** Appends an object. Behavior undefined if array doesn't have enough capacity. Sets the index in CCObject appropriately. */
+void ccArrayAppendObjectNew(ccArray *arr, CCObject* object)
+{
+    CCAssert(object != NULL, "Invalid parameter!");
+    object->retain();
+	arr->arr[arr->num] = object;
+	object->m_uArrayIndex = arr->num;
+	arr->num++;
+}
+
+/** Appends objects from plusArr to arr. Capacity of arr is increased if needed. Sets the index in CCObject appropriately. */
+void ccArrayAppendObjectWithResizeNew(ccArray *arr, CCObject* object)
+{
+	ccArrayEnsureExtraCapacity(arr, 1);
+	ccArrayAppendObjectNew(arr, object);
+}
+
+/** Removes object at specified index and fills the gap with the last object,
+ thereby avoiding the need to push back subsequent objects.
+ Behavior undefined if index outside [0, num-1]. 
+ Sets the index in CCObject appropriately. */
+void ccArrayFastRemoveObjectAtIndexNew(ccArray *arr, unsigned int index)
+{
+	CC_SAFE_RELEASE(arr->arr[index]);
+	unsigned int last = --arr->num;
+	arr->arr[index] = arr->arr[last];
+	arr->arr[last]->m_uArrayIndex = index;
+}
+
+CC_GD_ADD_END
+
+
 NS_CC_END

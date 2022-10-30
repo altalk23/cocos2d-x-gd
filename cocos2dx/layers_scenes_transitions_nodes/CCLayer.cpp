@@ -488,6 +488,26 @@ void CCLayer::ccTouchesCancelled(CCSet *pTouches, CCEvent *pEvent)
     CC_UNUSED_PARAM(pEvent);
 }
 
+CC_GD_ADD_BEGIN
+bool CCLayer::isKeyboardEnabled() {
+    return m_bKeyboardEnabled;
+}
+void CCLayer::setKeyboardEnabled(bool value) {
+    m_bKeyboardEnabled = value;
+}
+
+bool CCLayer::isMouseEnabled() {
+    return m_bMouseEnabled;
+}
+void CCLayer::setMouseEnabled(bool value) {
+    m_bMouseEnabled = value;
+}
+
+void CCLayer::keyDown(enumKeyCodes key) {
+    CC_UNUSED_PARAM(key);
+}
+CC_GD_ADD_END
+
 // LayerRGBA
 CCLayerRGBA::CCLayerRGBA()
 : _displayedOpacity(255)

@@ -1143,7 +1143,7 @@ void CCNode::update(float fDelta)
     }
 }
 
-CCAffineTransform CCNode::nodeToParentTransform(void)
+CC_GD_ADD(const) CCAffineTransform CCNode::nodeToParentTransform(void)
 {
     if (m_bTransformDirty) 
     {
@@ -1226,7 +1226,7 @@ void CCNode::setAdditionalTransform(const CCAffineTransform& additionalTransform
     m_bAdditionalTransformDirty = true;
 }
 
-CCAffineTransform CCNode::parentToNodeTransform(void)
+CC_GD_ADD(const) CCAffineTransform CCNode::parentToNodeTransform(void)
 {
     if ( m_bInverseDirty ) {
         m_sInverse = CCAffineTransformInvert(this->nodeToParentTransform());
@@ -1323,6 +1323,25 @@ void CCNode::removeAllComponents()
 {
     m_pComponentContainer->removeAll();
 }
+
+CC_GD_ADD_BEGIN
+
+CCSize CCNode::getScaledContentSize() {
+    CCSize size = m_obContentSize;
+    size.width *= m_fScaleX;
+    size.height *= m_fScaleY;
+    return size;
+}
+
+void CCNode::removeMeAndCleanup() {
+    this->removeFromParent();
+}
+
+void CCNode::updateTweenAction(float, const char*) {
+
+}
+
+CC_GD_ADD_END
 
 // CCNodeRGBA
 CCNodeRGBA::CCNodeRGBA()

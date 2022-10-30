@@ -41,6 +41,11 @@ CCObject::CCObject(void)
 : m_nLuaID(0)
 , m_uReference(1) // when the object is created, the reference count of it is 1
 , m_uAutoReleaseCount(0)
+CC_GD_ADD_BEGIN
+, m_nTag(0)
+, m_eObjType(kCCObjectTypeNone)
+, m_uArrayIndex(0)
+CC_GD_ADD_END
 {
     static unsigned int uObjectCount = 0;
 
@@ -119,5 +124,33 @@ void CCObject::acceptVisitor(CCDataVisitor &visitor)
 {
     visitor.visitObject(this);
 }
+
+CC_GD_ADD_BEGIN
+
+void CCObject::encodeWithCoder(DS_Dictionary*) {
+    CC_GD_NOT_IMPLEMENTED();
+}
+
+CCObject* CCObject::createWithCoder(DS_Dictionary*) {
+    CC_GD_NOT_IMPLEMENTED();
+}
+
+bool CCObject::canEncode() {
+    CC_GD_NOT_IMPLEMENTED();
+}
+
+CCObjectType CCObject::getObjType() const {
+    return m_eObjType;
+}
+
+int CCObject::getTag() const {
+    return m_nTag;
+}
+
+void CCObject::setTag(int nTag) {
+    m_nTag = nTag;
+}
+
+CC_GD_ADD_END
 
 NS_CC_END

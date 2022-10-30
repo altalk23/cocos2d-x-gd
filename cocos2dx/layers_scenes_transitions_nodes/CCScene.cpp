@@ -69,4 +69,21 @@ CCScene *CCScene::create()
     }
 }
 
+CC_GD_ADD_BEGIN
+
+int CCScene::getHighestChildZ(void) {
+    CCObject* child = nullptr;
+    CCArray* children = this->getChildren();
+    int maxZ = 0; // yep he doesn't start it from negative
+    CCARRAY_FOREACH(children, child) {
+        int nextZ = static_cast<CCNode*>(child)->getZOrder();
+
+        if (nextZ > maxZ) maxZ = nextZ;
+    }
+
+    return maxZ;
+}
+
+CC_GD_ADD_END
+
 NS_CC_END

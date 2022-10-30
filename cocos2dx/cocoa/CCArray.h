@@ -234,6 +234,17 @@ public:
     /* override functions */
     virtual void acceptVisitor(CCDataVisitor &visitor);
 
+    CC_GD_ADD_BEGIN
+
+    /* Returns an element with a certain index casted to CCString */
+    CCString* stringAtIndex(unsigned int index);
+    /* Add a certain object and set the index in CCObject */
+    void addObjectNew(CCObject* object);
+    /* Fast way to remove an element with a certain index while setting the index in CCObject */
+    void fastRemoveObjectAtIndexNew(unsigned int index);
+
+    CC_GD_ADD_END
+
 public:
     ccArray* data;
     /**

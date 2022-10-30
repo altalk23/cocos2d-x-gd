@@ -31,6 +31,17 @@ THE SOFTWARE.
 
 NS_CC_BEGIN
 
+CC_GD_ADD_BEGIN
+
+class CCScene;
+
+class CC_DLL CCSceneDelegate {
+public: 
+    virtual void willSwitchToScene(CCScene* scene) {}
+};
+
+CC_GD_ADD_END
+
 /**
  * @addtogroup scene
  * @{
@@ -61,6 +72,13 @@ public:
     bool init();
 
     static CCScene *create(void);
+
+    CC_GD_ADD_BEGIN
+
+    int getHighestChildZ(void);
+
+    CCSceneDelegate* m_pDelegate;
+    CC_GD_ADD_END
 };
 
 // end of scene group

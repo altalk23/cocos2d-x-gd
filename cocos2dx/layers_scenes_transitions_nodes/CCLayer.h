@@ -37,6 +37,13 @@ THE SOFTWARE.
 #include "base_nodes/CCGLBufferedNode.h"
 #endif // EMSCRIPTEN
 
+CC_GD_ADD_BEGIN
+
+#include "robtop/keyboard_dispatcher/CCKeyboardDelegate.h"
+#include "robtop/mouse_dispatcher/CCMouseDelegate.h"
+
+CC_GD_ADD_END
+
 NS_CC_BEGIN
 
 typedef enum {
@@ -60,7 +67,10 @@ All features from CCNode are valid, plus the following new features:
 - It can receive iPhone Touches
 - It can receive Accelerometer input
 */
-class CC_DLL CCLayer : public CCNode, public CCTouchDelegate, public CCAccelerometerDelegate, public CCKeypadDelegate
+class CC_DLL CCLayer : public CCNode, public CCTouchDelegate, public CCAccelerometerDelegate, public CCKeypadDelegate 
+CC_GD_ADD_BEGIN
+, public CCKeyboardDelegate, public CCMouseDelegate
+CC_GD_ADD_END
 {
 public:
     /**
@@ -158,6 +168,14 @@ public:
     virtual bool isKeypadEnabled();
     virtual void setKeypadEnabled(bool value);
 
+    CC_GD_ADD_BEGIN
+    virtual bool isKeyboardEnabled();
+    virtual void setKeyboardEnabled(bool value);
+
+    virtual bool isMouseEnabled();
+    virtual void setMouseEnabled(bool value);
+    CC_GD_ADD_END
+
     /** Register keypad events handler */
     void registerScriptKeypadHandler(int nHandler);
     /** Unregister keypad events handler */
@@ -165,6 +183,10 @@ public:
 
     virtual void keyBackClicked(void);
     virtual void keyMenuClicked(void);
+
+    CC_GD_ADD_BEGIN
+    virtual void keyDown(enumKeyCodes key);
+    CC_GD_ADD_END
     
     inline CCTouchScriptHandlerEntry* getScriptTouchHandlerEntry() { return m_pScriptTouchHandlerEntry; };
     inline CCScriptHandlerEntry* getScriptKeypadHandlerEntry() { return m_pScriptKeypadHandlerEntry; };
@@ -173,6 +195,8 @@ protected:
     bool m_bTouchEnabled;
     bool m_bAccelerometerEnabled;
     bool m_bKeypadEnabled;
+    CC_GD_ADD(bool m_bKeyboardEnabled;)
+    CC_GD_ADD(bool m_bMouseEnabled;)
     
 private:
     // Script touch events handler

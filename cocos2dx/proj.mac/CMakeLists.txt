@@ -19,6 +19,8 @@ file(GLOB COCOS_SOURCES
 	${COCOS_SRC}/platform/*.cpp
 	${COCOS_SRC}/platform/mac/*.m
 	${COCOS_SRC}/platform/mac/*.mm
+	${COCOS_SRC}/robtop/keyboard_dispatcher/*.cpp
+	${COCOS_SRC}/robtop/mouse_dispatcher/*.cpp
 	${COCOS_SRC}/script_support/*.cpp
 	${COCOS_SRC}/sprite_nodes/*.cpp
 	${COCOS_SRC}/support/*.cpp

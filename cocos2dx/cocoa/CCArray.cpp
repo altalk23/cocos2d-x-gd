@@ -24,6 +24,7 @@ THE SOFTWARE.
 ****************************************************************************/
 
 #include "CCArray.h"
+#include "CCString.h"
 #include "platform/CCFileUtils.h"
 
 NS_CC_BEGIN
@@ -395,5 +396,23 @@ void CCArray::acceptVisitor(CCDataVisitor &visitor)
 {
     visitor.visit(this);
 }
+
+
+CC_GD_ADD_BEGIN
+
+
+CCString* CCArray::stringAtIndex(unsigned int index) {
+    return static_cast<CCString*>(this->objectAtIndex(index));
+}
+
+void CCArray::addObjectNew(CCObject* object) {
+    ccArrayAppendObjectWithResizeNew(data, object);
+}
+
+void CCArray::fastRemoveObjectAtIndexNew(unsigned int index) {
+    ccArrayFastRemoveObjectAtIndexNew(data, index);
+}
+
+CC_GD_ADD_END
 
 NS_CC_END

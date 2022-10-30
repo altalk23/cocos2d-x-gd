@@ -434,6 +434,17 @@ public:
      */
     virtual const CCSize& getContentSize() const;
 
+    CC_GD_ADD_BEGIN
+
+    /**
+     * Returns the transformed size of the node.
+     *
+     * @return The transformed size of the node.
+     */
+    virtual CCSize getScaledContentSize(); 
+
+    CC_GD_ADD_END
+
     
     /**
      * Sets whether the node is visible
@@ -663,6 +674,17 @@ public:
      * @js removeFromParent
      */
     virtual void removeFromParentAndCleanup(bool cleanup);
+
+    CC_GD_ADD_BEGIN
+
+    /** 
+     * Equivalent to removeFromParent().
+     */
+    virtual void removeMeAndCleanup();
+
+    CC_GD_ADD_END
+
+
     /** 
      * Removes a child from the container with a cleanup
      *
@@ -1246,13 +1268,13 @@ public:
      * Returns the matrix that transform the node's (local) space coordinates into the parent's space coordinates.
      * The matrix is in Pixels.
      */
-    virtual CCAffineTransform nodeToParentTransform(void);
+    virtual CC_GD_ADD(const) CCAffineTransform nodeToParentTransform(void);
 
     /** 
      * Returns the matrix that transform parent's space coordinates to the node's (local) space coordinates.
      * The matrix is in Pixels.
      */
-    virtual CCAffineTransform parentToNodeTransform(void);
+    virtual CC_GD_ADD(const) CCAffineTransform parentToNodeTransform(void);
 
     /** 
      * Returns the world affine transform matrix. The matrix is in Pixels.
@@ -1381,6 +1403,12 @@ public:
      */
     virtual void removeAllComponents();
     /// @} end of component functions
+
+    CC_GD_ADD_BEGIN
+
+    virtual void updateTweenAction(float, const char*);
+
+    CC_GD_ADD_END
 
 private:
     /// lazy allocs

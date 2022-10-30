@@ -27,10 +27,6 @@ THE SOFTWARE.
 
 #include "CCDataVisitor.h"
 
-#ifdef EMSCRIPTEN
-#include <GLES2/gl2.h>
-#endif // EMSCRIPTEN
-
 NS_CC_BEGIN
 
 /**
@@ -42,6 +38,19 @@ class CCZone;
 class CCObject;
 class CCNode;
 class CCEvent;
+
+CC_GD_ADD_BEGIN
+
+class DS_Dictionary;
+
+enum CCObjectType {
+    kCCObjectTypeNone = 0,
+    kCCObjectTypePlayLayer = 5,
+    kCCObjectTypeLevelEditorLayer = 6,
+    kCCObjectTypeMenuLayer = 15,
+};
+
+CC_GD_ADD_END
 
 /**
  * @js NA
@@ -64,10 +73,17 @@ public:
     // Lua reference id
     int                 m_nLuaID;
 protected:
+    CC_GD_ADD( int m_nTag; )
+
     // count of references
     unsigned int        m_uReference;
     // count of autorelease
     unsigned int        m_uAutoReleaseCount;
+
+public:
+    CC_GD_ADD( CCObjectType m_eObjType; )
+    CC_GD_ADD( unsigned int m_uArrayIndex; )
+
 public:
     CCObject(void);
     /**
@@ -88,6 +104,26 @@ public:
     virtual void update(float dt) {CC_UNUSED_PARAM(dt);};
     
     friend class CCAutoreleasePool;
+
+    CC_GD_ADD_BEGIN
+
+    virtual void encodeWithCoder(DS_Dictionary*);
+
+    static CCObject* createWithCoder(DS_Dictionary*);
+    
+    virtual bool canEncode();
+
+    CCObjectType getObjType() const;
+    
+    virtual int getTag() const;
+
+    virtual void setTag(int nTag);
+   
+    inline void setObjType(CCObjectType type) {
+        m_eObjType = type;
+    }
+
+    CC_GD_ADD_END
 };
 
 
@@ -100,14 +136,14 @@ typedef void (CCObject::*SEL_MenuHandler)(CCObject*);
 typedef void (CCObject::*SEL_EventHandler)(CCEvent*);
 typedef int (CCObject::*SEL_Compare)(CCObject*);
 
-#define schedule_selector(_SELECTOR) (SEL_SCHEDULE)(&_SELECTOR)
-#define callfunc_selector(_SELECTOR) (SEL_CallFunc)(&_SELECTOR)
-#define callfuncN_selector(_SELECTOR) (SEL_CallFuncN)(&_SELECTOR)
-#define callfuncND_selector(_SELECTOR) (SEL_CallFuncND)(&_SELECTOR)
-#define callfuncO_selector(_SELECTOR) (SEL_CallFuncO)(&_SELECTOR)
-#define menu_selector(_SELECTOR) (SEL_MenuHandler)(&_SELECTOR)
-#define event_selector(_SELECTOR) (SEL_EventHandler)(&_SELECTOR)
-#define compare_selector(_SELECTOR) (SEL_Compare)(&_SELECTOR)
+#define schedule_selector(_SELECTOR) SEL_SCHEDULE(&_SELECTOR)
+#define callfunc_selector(_SELECTOR) SEL_CallFunc(&_SELECTOR)
+#define callfuncN_selector(_SELECTOR) SEL_CallFuncN(&_SELECTOR)
+#define callfuncND_selector(_SELECTOR) SEL_CallFuncND(&_SELECTOR)
+#define callfuncO_selector(_SELECTOR) SEL_CallFuncO(&_SELECTOR)
+#define menu_selector(_SELECTOR) SEL_MenuHandler(&_SELECTOR)
+#define event_selector(_SELECTOR) SEL_EventHandler(&_SELECTOR)
+#define compare_selector(_SELECTOR) SEL_Compare(&_SELECTOR)
 
 // end of base_nodes group
 /// @}
